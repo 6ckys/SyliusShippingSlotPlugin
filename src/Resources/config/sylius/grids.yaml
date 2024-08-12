@@ -1,0 +1,7 @@
+sylius_grid:
+    templates:
+        action:
+            shipping_slot_config: "@MonsieurBizSyliusShippingSlotPlugin/Admin/Grid/Action/shipping_slot_config.html.twig"
+
+imports:
+    - { resource: 'grids/*.yaml' }

@@ -1,0 +1,17 @@
+{
+  "entrypoints": {
+    "shipping-slot-js": {
+      "css": [
+        "/public/css/shipping-slot-js.css"
+      ],
+      "js": [
+        "/public/js/shipping-slot-js.js"
+      ]
+    },
+    "shipping-slot-css": {
+      "css": [
+        "/public/css/shipping-slot-css.css"
+      ]
+    }
+  }
+}

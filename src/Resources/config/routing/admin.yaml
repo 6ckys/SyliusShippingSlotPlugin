@@ -1,0 +1,31 @@
+monsieurbiz_shipping_slot_admin_config:
+    resource: |
+        alias: monsieurbiz_shipping_slot.shipping_slot_config
+        section: admin
+        permission: true
+        templates: "@SyliusAdmin\\Crud"
+        except: ['show']
+        redirect: update
+        grid: monsieurbiz_shipping_slot_config
+        vars:
+            all:
+                subheader: monsieurbiz_shipping_slot.ui.manage_shipping_slot_config
+            index:
+                icon: 'truck'
+    type: sylius.resource
+
+monsieurbiz_shipping_slot_admin_slot:
+    resource: |
+        alias: monsieurbiz_shipping_slot.slot
+        section: admin
+        permission: true
+        templates: "@SyliusAdmin\\Crud"
+        except: ['show']
+        redirect: update
+        grid: monsieurbiz_shipping_slot_slot
+        vars:
+            all:
+                subheader: monsieurbiz_shipping_slot.ui.manage_shipping_slot_slot
+            index:
+                icon: 'clipboard list'
+    type: sylius.resource

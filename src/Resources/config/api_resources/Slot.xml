@@ -1,0 +1,209 @@
+<?xml version="1.0" ?>
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata https://api-platform.com/schema/metadata/metadata-2.0.xsd"
+>
+    <resource class="%monsieurbiz_shipping_slot.model.slot.class%" shortName="shippingSlot">
+        <attribute name="normalization_context">
+            <attribute name="groups">
+                <attribute>shop:shipping_slot:read</attribute>
+            </attribute>
+        </attribute>
+
+        <attribute name="denormalizationContext">
+            <attribute name="groups">
+                <attribute>shop:shipping_slot:write</attribute>
+            </attribute>
+        </attribute>
+
+        <attribute name="validation_groups">sylius</attribute>
+
+        <collectionOperations>
+            <collectionOperation name="monsieurbiz_shippingslot_checkout_saveslot">
+                <attribute name="method">POST</attribute>
+                <attribute name="path">/shop/shipping-slot-plugin/save/</attribute>
+                <attribute name="controller">MonsieurBiz\SyliusShippingSlotPlugin\Controller\SlotController::saveAction</attribute>
+                <attribute name="pagination_enabled">false</attribute>
+                <attribute name="openapi_context">
+                    <attribute name="summary">Save slot.</attribute>
+                    <attribute name="requestBody">
+                        <attribute name="content">
+                            <attribute name="application/json">
+                                <attribute name="schema">
+                                    <attribute name="type">object</attribute>
+                                    <attribute name="properties">
+                                        <attribute name="shippingMethod">
+                                            <attribute name="type">string</attribute>
+                                        </attribute>
+                                        <attribute name="shipmentIndex">
+                                            <attribute name="type">number</attribute>
+                                        </attribute>
+                                        <attribute name="shippingSlotConfig">
+                                            <attribute name="type">number</attribute>
+                                        </attribute>
+                                        <attribute name="event">
+                                            <attribute name="type">object</attribute>
+                                            <attribute name="properties">
+                                                <attribute name="start">
+                                                    <attribute name="type">string</attribute>
+                                                </attribute>
+                                                <attribute name="end">
+                                                    <attribute name="type">string</attribute>
+                                                </attribute>
+                                                <attribute name="extendedProps">
+                                                    <attribute name="type">object</attribute>
+                                                    <attribute name="properties">
+                                                        <attribute name="isCurrent">
+                                                            <attribute name="type">boolean</attribute>
+                                                        </attribute>
+                                                    </attribute>
+                                                </attribute>
+                                            </attribute>
+                                        </attribute>
+                                    </attribute>
+                                </attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                    <attribute name="responses">
+                        <attribute name="200">
+                            <attribute name="description">Slot accepted.</attribute>
+                            <attribute name="content">
+                                <attribute name="application/json">
+                                    <attribute name="schema">
+                                        <attribute name="type">object</attribute>
+                                        <attribute name="properties">
+                                            <attribute name="message">
+                                                <attribute name="type">string</attribute>
+                                            </attribute>
+                                        </attribute>
+                                    </attribute>
+                                </attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                </attribute>
+            </collectionOperation>
+
+            <collectionOperation name="monsieurbiz_shippingslot_checkout_resetslot">
+                <attribute name="method">POST</attribute>
+                <attribute name="path">/shop/shipping-slot-plugin/reset/</attribute>
+                <attribute name="controller">MonsieurBiz\SyliusShippingSlotPlugin\Controller\SlotController::resetAction</attribute>
+                <attribute name="pagination_enabled">false</attribute>
+                <attribute name="openapi_context">
+                    <attribute name="summary">Reset Slot.</attribute>
+                    <attribute name="requestBody">
+                        <attribute name="content">
+                            <attribute name="application/json">
+                                <attribute name="schema">
+                                    <attribute name="type">object</attribute>
+                                    <attribute name="properties">
+                                        <attribute name="shipmentIndex">
+                                            <attribute name="type">number</attribute>
+                                        </attribute>
+                                    </attribute>
+                                </attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                    <attribute name="responses">
+                        <attribute name="200">
+                            <attribute name="description">Slot has been reset successfully.</attribute>
+                            <attribute name="content">
+                                <attribute name="application/json">
+                                    <attribute name="schema">
+                                        <attribute name="type">object</attribute>
+                                        <attribute name="properties">
+                                            <attribute name="message">
+                                                <attribute name="type">string</attribute>
+                                            </attribute>
+                                        </attribute>
+                                    </attribute>
+                                </attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                </attribute>
+            </collectionOperation>
+
+        </collectionOperations>
+
+        <itemOperations>
+            <itemOperation name="shop_monsieurbiz_shippingslot_checkout_init">
+                <attribute name="method">GET</attribute>
+                <attribute name="path">/shop/shipping-slot-plugin/init/{code}/{shippingSlotConfig}</attribute>
+                <attribute name="controller">MonsieurBiz\SyliusShippingSlotPlugin\Controller\SlotController::initAction</attribute>
+                <attribute name="read">false</attribute>
+                <attribute name="openapi_context">
+                    <attribute name="summary">Initialise the slot configuration.</attribute>
+                    <attribute name="parameters">
+                        <attribute>
+                            <attribute name="name">code</attribute>
+                            <attribute name="in">path</attribute>
+                            <attribute name="required">true</attribute>
+                            <attribute name="schema">
+                                <attribute name="type">string</attribute>
+                            </attribute>
+                        </attribute>
+                        <attribute>
+                            <attribute name="name">shippingSlotConfig</attribute>
+                            <attribute name="in">path</attribute>
+                            <attribute name="required">true</attribute>
+                            <attribute name="schema">
+                                <attribute name="type">string</attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                </attribute>
+                <attribute name="force_eager">false</attribute>
+            </itemOperation>
+
+            <itemOperation name="shop_monsieurbiz_shippingslot_checkout_listslots">
+                <attribute name="method">GET</attribute>
+                <attribute name="path">/shop/shipping-slot-plugin/list/{code}/{fromDate}/{toDate}/{shippingSlotConfig}</attribute>
+                <attribute name="controller">MonsieurBiz\SyliusShippingSlotPlugin\Controller\SlotController::listAction</attribute>
+                <attribute name="read">false</attribute>
+                <attribute name="openapi_context">
+                    <attribute name="summary">List the available slots.</attribute>
+                    <attribute name="parameters">
+                        <attribute>
+                            <attribute name="name">code</attribute>
+                            <attribute name="in">path</attribute>
+                            <attribute name="required">true</attribute>
+                            <attribute name="schema">
+                                <attribute name="type">string</attribute>
+                            </attribute>
+                        </attribute>
+                        <attribute>
+                            <attribute name="name">fromDate</attribute>
+                            <attribute name="in">path</attribute>
+                            <attribute name="required">true</attribute>
+                            <attribute name="schema">
+                                <attribute name="type">string</attribute>
+                            </attribute>
+                        </attribute>
+                        <attribute>
+                            <attribute name="name">toDate</attribute>
+                            <attribute name="in">path</attribute>
+                            <attribute name="required">true</attribute>
+                            <attribute name="schema">
+                                <attribute name="type">string</attribute>
+                            </attribute>
+                        </attribute>
+                        <attribute>
+                            <attribute name="name">shippingSlotConfig</attribute>
+                            <attribute name="in">path</attribute>
+                            <attribute name="required">true</attribute>
+                            <attribute name="schema">
+                                <attribute name="type">string</attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                </attribute>
+                <attribute name="force_eager">false</attribute>
+            </itemOperation>
+        </itemOperations>
+
+        <property name="id" identifier="true" writable="false"/>
+    </resource>
+</resources>

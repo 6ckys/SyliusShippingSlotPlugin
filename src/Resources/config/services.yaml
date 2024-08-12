@@ -1,0 +1,45 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    MonsieurBiz\SyliusShippingSlotPlugin\:
+        resource: '../../*'
+        exclude: '../../{Entity,Migrations}'
+
+    MonsieurBiz\SyliusShippingSlotPlugin\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
+    # Make transition public for winzou
+    MonsieurBiz\SyliusShippingSlotPlugin\Transition\:
+        resource: '../../Transition'
+        public: true
+
+    # ShippingSlotConfigType Form
+    MonsieurBiz\SyliusShippingSlotPlugin\Form\Type\ShippingSlotConfigType:
+        arguments:
+            $dataClass: '%monsieurbiz_shipping_slot.model.shipping_slot_config.class%'
+            $validationGroups: ['monsieurbiz']
+
+    # Menu item in admin panel
+    MonsieurBiz\SyliusShippingSlotPlugin\Listener\AdminMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItem }
+
+    # Remove shipping slot on cart clean
+    MonsieurBiz\SyliusShippingSlotPlugin\Listener\CartsPreRemoveListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.carts.pre_remove, method: removeExpiredCartsSlots }
+
+    # Validate slot on checkout complete
+    MonsieurBiz\SyliusShippingSlotPlugin\Listener\OrderPreCompleteListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.order.pre_complete, method: checkSlot }
+
+    # Form type for shipping slot configs by shipping method in checkout
+    MonsieurBiz\SyliusShippingSlotPlugin\Form\Type\ShippingSlotConfigsByMethod:
+        arguments:
+            $shippingMethodsResolver: '@sylius.shipping_methods_resolver'
+            $repository: '@sylius.repository.shipping_method'
