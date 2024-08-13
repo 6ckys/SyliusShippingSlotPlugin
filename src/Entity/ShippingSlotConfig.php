@@ -24,11 +24,14 @@ use Recurr\Transformer\Constraint\AfterConstraint;
 use Recurr\Transformer\Constraint\BeforeConstraint;
 use Recurr\Transformer\Constraint\BetweenConstraint;
 use Recurr\Transformer\ConstraintInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 class ShippingSlotConfig implements ShippingSlotConfigInterface
 {
+    #[Groups(['shop:order:read', 'shop:cart:read'])]
     protected ?int $id = null;
 
+    #[Groups(['shop:order:read', 'shop:cart:read'])]
     protected ?string $name = null;
 
     protected ?string $timezone = null;

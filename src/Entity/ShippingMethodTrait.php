@@ -16,6 +16,7 @@ namespace MonsieurBiz\SyliusShippingSlotPlugin\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait ShippingMethodTrait
 {
@@ -39,6 +40,7 @@ trait ShippingMethodTrait
     #[ORM\JoinTable(name: 'monsieurbiz_shipping_slot_shipping_method')]
     #[ORM\JoinColumn(name: 'shipping_method_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'shipping_slot_config_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[Groups(['shop:order:read', 'shop:cart:read'])]
     private Collection $shippingSlotConfigs;
 
     public function __construct()
